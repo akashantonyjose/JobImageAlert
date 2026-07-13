@@ -46,17 +46,17 @@ def create_job_image(jobs, title, out_dir="output_images"):
     img = Image.new("RGB", (WIDTH, HEIGHT), BG_COLOR)
     draw = ImageDraw.Draw(img)
 
-    title_font = _load_font(56)
-    heading_font = _load_font(32)
-    body_font = _load_font(26)
-    note_font = _load_font(24)
+    title_font = _load_font(64)
+    heading_font = _load_font(36)
+    body_font = _load_font(30)
+    note_font = _load_font(26)
     sub_font = _load_font(30)
 
     y = 90
     draw.text((WIDTH / 2, y), title, font=title_font, fill=TITLE_COLOR, anchor="ma")
-    y += 90
+    y += 100
     draw.line((60, y, WIDTH - 60, y), fill=DIVIDER_COLOR, width=2)
-    y += 50
+    y += 55
 
     # Reserve space at the bottom for the note + subscribe banner
     footer_reserved = 260
@@ -66,28 +66,25 @@ def create_job_image(jobs, title, out_dir="output_images"):
         if y > max_y:
             break
         header_line = f"{job.get('title', '')} @ {job.get('company', '')}"
-        for line in textwrap.wrap(header_line, width=34):
+        for line in textwrap.wrap(header_line, width=30):
             draw.text((WIDTH / 2, y), line, font=heading_font, fill=TEXT_COLOR, anchor="ma")
-            y += 40
+            y += 44
 
-        detail_line = (
-            f"Exp: {job.get('experience') or 'See listing'}  |  "
-            f"{job.get('work_mode', '')}  |  {job.get('location', '')}"
-        )
-        for line in textwrap.wrap(detail_line, width=46):
+        detail_line = f"{job.get('work_mode', '')}  |  {job.get('location', '')}"
+        for line in textwrap.wrap(detail_line, width=40):
             draw.text((WIDTH / 2, y), line, font=body_font, fill=ACCENT_COLOR, anchor="ma")
-            y += 34
+            y += 38
 
-        y += 30  # spacing between job entries
+        y += 34  # spacing between job entries
 
     # Footer note
-    footer_y = HEIGHT - footer_reserved + 10
+    footer_y = HEIGHT - footer_reserved + 20
     draw.line((60, footer_y, WIDTH - 60, footer_y), fill=DIVIDER_COLOR, width=2)
-    footer_y += 30
-    note_text = "Apply only via the official company careers page - search the exact job title there directly."
+    footer_y += 40
+    note_text = "Search through the official careers page for link"
     for line in textwrap.wrap(note_text, width=50):
         draw.text((WIDTH / 2, footer_y), line, font=note_font, fill=NOTE_COLOR, anchor="ma")
-        footer_y += 30
+        footer_y += 34
 
     # Subscribe banner (high-contrast yellow bar at the very bottom)
     banner_y = HEIGHT - 90
