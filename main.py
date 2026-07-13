@@ -68,8 +68,7 @@ def run_category(keywords, history_path, image_title, caption_prefix):
     )
     caption = (
         f"{caption_prefix}\n\n{links_text}\n\n"
-        "Apply only via the official company careers page - "
-        "search the exact job title there directly."
+        "Search through the official careers page for link"
     )
 
     send_photo(image_path, caption)
